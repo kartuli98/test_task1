@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:test_to_do/config/theme/colors.dart';
 import 'package:test_to_do/config/theme/styles.dart';
@@ -9,6 +7,7 @@ import 'package:test_to_do/presentation/pages/create_screen/create_edit_cubit.da
 import 'package:test_to_do/presentation/pages/create_screen/create_edit_state.dart';
 import 'package:test_to_do/presentation/widgets/common_widgets/screen_button.dart';
 import 'package:test_to_do/presentation/widgets/create_screen_widgets/create_screen_widgets.dart';
+import 'package:test_to_do/presentation/widgets/create_screen_widgets/editable_app_bar_title.dart';
 import 'package:test_to_do/presentation/widgets/create_screen_widgets/nested_image.dart';
 
 import '../../../core/constants/constants.dart';
@@ -32,7 +31,6 @@ class CreateScreen extends BasePage<CreateEditState, CreateEditCubit> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        //leadingWidth: 92,
         leading: IconButton(
           onPressed: () => bloc.navigator.pop(),
           icon: const Icon(
@@ -53,19 +51,10 @@ class CreateScreen extends BasePage<CreateEditState, CreateEditCubit> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Container(
-          margin: const EdgeInsets.only(top: 20),
-          alignment: Alignment.centerLeft,
-          child: TextField(
-            controller: bloc.nameController,
-            style: textRegular24,
-            maxLength: 15,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                hintStyle: textRegular24,
-                hintText: "Назва завдання..."),
-          ),
-        ),
+        title: EditableTitle(
+          controller: bloc.nameController,
+          hintText: "Назва завдання...",
+        )
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -107,7 +96,7 @@ class CreateScreen extends BasePage<CreateEditState, CreateEditCubit> {
                       ),
                 child: InkWell(
                   // todo
-                  onTap: () {},
+                  onTap: bloc.pickFile,
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: model.filePath != null
@@ -140,36 +129,36 @@ class CreateScreen extends BasePage<CreateEditState, CreateEditCubit> {
               const ColumnSeparator(),
               ColumnItemWidget(
                 padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      width: 34,
-                    ),
-                    CustomCheckbox(
-                        size: 30,
-                        borderColor: AppColorScheme.colorAlto,
-                        icon: Icons.circle,
-                        iconSize: 16,
-                        iconColor: AppColorScheme.colorGold,
-                        activeColor: AppColorScheme.colorAlto,
-                        backgroundColor: AppColorScheme.colorAlto,
-                        isCircle: true,
-                        onChange: () {
-                          bloc.toggleUrgent();
-                        },
-                        isChecked: model.urgent == 1),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Термінове',
-                      style: textRegular18,
-                    ),
-                    const SizedBox(
-                      width: 54,
-                    )
-                  ],
+                child: InkWell(
+                  onTap: () => bloc.toggleUrgent(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        width: 34,
+                      ),
+                      CustomCheckbox(
+                          size: 30,
+                          borderColor: AppColorScheme.colorAlto,
+                          icon: Icons.circle,
+                          iconSize: 16,
+                          iconColor: AppColorScheme.colorGold,
+                          activeColor: AppColorScheme.colorAlto,
+                          backgroundColor: AppColorScheme.colorAlto,
+                          isCircle: true,
+                          isChecked: model.urgent == 1),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        'Термінове',
+                        style: textRegular18,
+                      ),
+                      const SizedBox(
+                        width: 54,
+                      )
+                    ],
+                  ),
                 ),
               ),
               const ColumnSeparator(),

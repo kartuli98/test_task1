@@ -4,7 +4,7 @@ class CustomCheckbox extends StatelessWidget {
   double? size;
   double borderRadius;
   double? iconSize;
-  Function() onChange;
+  Function()? onChange;
   Color? backgroundColor;
   Color? activeColor;
   Color? iconColor;
@@ -18,7 +18,7 @@ class CustomCheckbox extends StatelessWidget {
     Key? key,
     this.size,
     this.iconSize,
-    required this.onChange,
+    this.onChange,
     this.backgroundColor,
     this.activeColor,
     this.iconColor,

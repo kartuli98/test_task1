@@ -16,11 +16,6 @@ class NetworkRequest {
       this.body,
       this.listBody,
       this.files}) {
-    // Map<String, dynamic> _queryParams = {};
-
-    // if (queryParameters != null) {
-    //   _queryParams.addAll(queryParameters);
-    // }
 
     _endpoint = "$endpoint${_makeQuery(queryParameters)}";
     _headers!.addAll(_defaultHeaders);
@@ -79,19 +74,19 @@ class NetworkRequest {
           body: body,
           queryParameters: queryParameters);
 
-  factory NetworkRequest.postMultipart(
-          {required String endpoint,
-          Map<String, String>? headers,
-          Map<String, dynamic>? body,
-          required List<FileFormData> files,
-          Map<String, dynamic>? queryParameters}) =>
-      NetworkRequest._(
-          endpoint: endpoint,
-          type: RequestType.postMultipart,
-          headers: headers,
-          body: body,
-          files: files,
-          queryParameters: queryParameters);
+  // factory NetworkRequest.postMultipart(
+  //         {required String endpoint,
+  //         Map<String, String>? headers,
+  //         Map<String, dynamic>? body,
+  //         required List<FileFormData> files,
+  //         Map<String, dynamic>? queryParameters}) =>
+  //     NetworkRequest._(
+  //         endpoint: endpoint,
+  //         type: RequestType.postMultipart,
+  //         headers: headers,
+  //         body: body,
+  //         files: files,
+  //         queryParameters: queryParameters);
 
   String get url => _endpoint;
 
@@ -119,10 +114,6 @@ class NetworkRequest {
         writeParameter(key, value);
       } else {
         writeParameter(key, value.toString());
-        // Iterable values = value;
-        // for (String value in values) {
-        //   writeParameter(key, value);
-        // }
       }
     });
     return result.toString();

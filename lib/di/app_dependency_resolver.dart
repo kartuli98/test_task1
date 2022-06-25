@@ -61,7 +61,9 @@ class AppDependeciesResolver {
         TaskUpdateChecker());
 
     DependencyProvider.registerLazySingleton<PostTasksUseCase>(() =>
-        PostTasksUseCase(DependencyProvider.get<RemoteTaskRepository>(),
+        PostTasksUseCase(
+          logger,
+          DependencyProvider.get<RemoteTaskRepository>(),
             ));
 
     DependencyProvider.registerLazySingleton<ReadTasksUseCase>(() =>
@@ -96,6 +98,7 @@ class AppDependeciesResolver {
             DependencyProvider.get<LocalTaskRepository>()));        
 
     DependencyProvider.registerSingleton<SynchronizationServices>(SynchronizationServices(
+      logger,
       DependencyProvider.get<ConnectivityService>(),
       DependencyProvider.get<PostTasksUseCase>(),
       DependencyProvider.get<ReadTasksUseCase>(),

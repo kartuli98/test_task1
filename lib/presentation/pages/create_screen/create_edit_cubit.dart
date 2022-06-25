@@ -6,6 +6,7 @@ import 'package:test_to_do/core/di/dependency_provider.dart';
 import 'package:test_to_do/core/logger/todo_logger.dart';
 import 'package:test_to_do/core/navigation/app_navigator.dart';
 import 'package:test_to_do/core/observer/task_update_checker.dart';
+import 'package:test_to_do/core/services/file_picker_services.dart';
 import 'package:test_to_do/domain/usecases/save_task_usecase.dart';
 import 'package:test_to_do/domain/usecases/update_status_usecase.dart';
 import 'package:test_to_do/presentation/pages/base_cubit.dart';
@@ -70,7 +71,9 @@ class CreateEditCubit extends BaseCubit<CreateEditState> {
           ? initialModel!.taskId
           : uuid.v1().characters.reduce((a, b) => '$a${int.tryParse(b) ?? ''}'),
       name: nameController.text,
-      description: descriptionController.text.isEmpty ? null : descriptionController.text,
+      description: descriptionController.text.isEmpty
+          ? null
+          : descriptionController.text,
     );
     if (editing && initialModel == newTask) {
       navigator.pop();
@@ -89,6 +92,13 @@ class CreateEditCubit extends BaseCubit<CreateEditState> {
         )));
       }
     }
+  }
+
+  void pickFile() async {
+    FilePickerService picker = FilePickerService();
+    final fileAndPath = await picker.pickSingleImage();
+    if (fileAndPath == null) return;
+    emit(state.copyWith.todoModel(filePath: fileAndPath.key));
   }
 
   bool _fieldValidation(TodoModel newTask) {

@@ -33,99 +33,73 @@ class _SetTypeTodoWidgetState extends State<SetTypeTodoWidget> {
       child: Row(
         children: [
           Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  width: 34,
-                ),
-                CustomCheckbox(
-                    size: 30,
-                    borderColor: AppColorScheme.colorAlto,
-                    icon: Icons.circle,
-                    iconSize: 16,
-                    iconColor: AppColorScheme.colorGold,
-                    activeColor: AppColorScheme.colorAlto,
-                    backgroundColor: AppColorScheme.colorAlto,
-                    isCircle: true,
-                    onChange: () {
-                      setState(() {
-                        _todoType = TodoType.work;
-                      });
-                    },
-                    isChecked: _todoType == TodoType.work),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Робочі',
-                  style: textRegular18,
-                ),
-              ],
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _todoType = TodoType.personal;
+                });
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    width: 34,
+                  ),
+                  CustomCheckbox(
+                      size: 30,
+                      borderColor: AppColorScheme.colorAlto,
+                      icon: Icons.circle,
+                      iconSize: 16,
+                      iconColor: AppColorScheme.colorGold,
+                      activeColor: AppColorScheme.colorAlto,
+                      backgroundColor: AppColorScheme.colorAlto,
+                      isCircle: true,
+                      isChecked: _todoType == TodoType.work),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Робочі',
+                    style: textRegular18,
+                  ),
+                ],
+              ),
             ),
           ),
           Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CustomCheckbox(
-                    size: 30,
-                    borderColor: AppColorScheme.colorAlto,
-                    icon: Icons.circle,
-                    iconSize: 16,
-                    iconColor: AppColorScheme.colorGold,
-                    activeColor: AppColorScheme.colorAlto,
-                    backgroundColor: AppColorScheme.colorAlto,
-                    isCircle: true,
-                    onChange: () {
-                      setState(() {
-                        _todoType = TodoType.personal;
-                      });
-                    },
-                    isChecked: _todoType == TodoType.personal),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Особисті',
-                  style: textRegular18,
-                ),
-                const SizedBox(
-                  width: 54,
-                )
-              ],
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  _todoType = TodoType.personal;
+                });
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CustomCheckbox(
+                      size: 30,
+                      borderColor: AppColorScheme.colorAlto,
+                      icon: Icons.circle,
+                      iconSize: 16,
+                      iconColor: AppColorScheme.colorGold,
+                      activeColor: AppColorScheme.colorAlto,
+                      backgroundColor: AppColorScheme.colorAlto,
+                      isCircle: true,
+                      isChecked: _todoType == TodoType.personal),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Особисті',
+                    style: textRegular18,
+                  ),
+                  const SizedBox(
+                    width: 54,
+                  )
+                ],
+              ),
             ),
           )
-          // Expanded(
-          //   child: RadioListTile<TodoType>(
-          //       activeColor: AppColorScheme.colorGold,
-          //       title: Text(
-          //         'Робочі',
-          //         style: textRegular18,
-          //       ),
-          //       value: TodoType.work,
-          //       groupValue: _todoType,
-          //       onChanged: (value) {
-          //         setState(() {
-          //           _todoType = value;
-          //         });
-          //       }),
-          // ),
-          // Expanded(
-          //   child: RadioListTile<TodoType>(
-          //       activeColor: AppColorScheme.colorGold,
-          //       title: Text(
-          //         'Особисті',
-          //         style: textRegular18,
-          //       ),
-          //       value: TodoType.personal,
-          //       groupValue: _todoType,
-          //       onChanged: (value) {
-          //         setState(() {
-          //           _todoType = value;
-          //         });
-          //       }),
-          // ),
         ],
       ),
     );
